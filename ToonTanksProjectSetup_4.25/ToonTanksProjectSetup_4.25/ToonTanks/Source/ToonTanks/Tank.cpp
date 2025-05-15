@@ -4,7 +4,6 @@
 #include "Tank.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
-#include "Components/InputComponent.h"
 
 ATank::ATank()
 {
@@ -28,7 +27,7 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void ATank::Move(float Value)
 {
-    // Move the tank forward/backward based on input value
-    FVector Forward = GetActorForwardVector();
-    AddActorLocalOffset(Forward * Value * Speed * GetWorld()->DeltaTimeSeconds, true);
+    FVector DeltaLocation = FVector::ZeroVector;
+    DeltaLocation.X = Value;
+    AddActorLocalOffset(DeltaLocation);
 }   
