@@ -15,11 +15,13 @@ class TOONTANKS_API ATank : public ABasePawn
 	GENERATED_BODY()
 
 public:
+	ATank();
 
 private:
-	UPROPERTY(VisibleAnyWhere)
+	UPROPERTY(VisibleAnyWhere, Category = "Components")
 	class USpringArmComponent* SpringArm;
-	UPROPERTY(VisibleAnywhere)
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
 	class UCameraComponent* Camera;
 	
 };
