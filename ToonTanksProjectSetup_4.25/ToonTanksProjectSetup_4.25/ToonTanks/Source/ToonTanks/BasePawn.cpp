@@ -42,7 +42,16 @@ void ABasePawn::Fire()
 	FVector Location = ProjectileSpawnPoint->GetComponentLocation();
 	FRotator Rotation = ProjectileSpawnPoint->GetComponentRotation();
 
-	GetWorld()->SpawnActor<AProjectile>(ProjectileClass, Location, Rotation);
-	
+	 // Calculate the forward vector of the spawn point
+    FVector ForwardVector = ProjectileSpawnPoint->GetForwardVector();
+
+    // Define the desired offset distance (e.g., 100 units)
+    float OffsetDistance = 100.f;
+
+    // Calculate the new spawn location by adding the offset in the forward direction
+    FVector OffsetLocation = Location + ForwardVector * OffsetDistance;
+
+    // Spawn the projectile at the offset location
+    GetWorld()->SpawnActor<AProjectile>(ProjectileClass, OffsetLocation, Rotation);
 
 }
