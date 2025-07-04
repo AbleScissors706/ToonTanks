@@ -22,9 +22,9 @@ protected:
 private:
 	UPROPERTY(EditAnywhere, Category = "Components")
 	UStaticMeshComponent* ProjectileMesh;
-	
-	UPROPERTY(EditAnywhere, Category = "Movement")
-	float Speed = 1000.f;
+
+	UPROPERTY(VisibleAnywhere, Category = "Movement")
+	class UProjectileMovementComponent* ProjectileMovement;
 
 public:	
 	// Called every frame
