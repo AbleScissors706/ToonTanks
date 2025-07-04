@@ -15,6 +15,11 @@ public:
 	// Sets default values for this pawn's properties
 	ABasePawn();
 
+protected:
+
+	void RotateTurret(FVector LookAtTarget);
+
+
 
 private:
 
