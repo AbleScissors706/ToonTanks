@@ -52,6 +52,7 @@ void ABasePawn::Fire()
     FVector OffsetLocation = Location + ForwardVector * OffsetDistance;
 
     // Spawn the projectile at the offset location
-    GetWorld()->SpawnActor<AProjectile>(ProjectileClass, OffsetLocation, Rotation);
+    auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, OffsetLocation, Rotation);
+	Projectile->SetOwner(this); // Set the owner of the projectile to this pawn
 
 }

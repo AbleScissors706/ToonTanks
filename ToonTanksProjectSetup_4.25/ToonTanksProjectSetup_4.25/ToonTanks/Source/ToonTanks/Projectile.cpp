@@ -4,6 +4,8 @@
 #include "Projectile.h"
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "GameFramework/DamageType.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AProjectile::AProjectile()
@@ -38,10 +40,20 @@ void AProjectile::Tick(float DeltaTime)
 
 void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	UE_LOG(LogTemp, Warning, TEXT("OnHit"));
-	UE_LOG(LogTemp, Warning, TEXT("Hit Comp: %s"), *HitComp->GetName());
-	UE_LOG(LogTemp, Warning, TEXT("Other Actor: %s"), *OtherActor->GetName());
-	UE_LOG(LogTemp, Warning, TEXT("Other Comp: %s"), *OtherComp->GetName());
-	Destroy(); // Destroy the projectile after it hits something
+	auto MyOwner = GetOwner();
+	if (MyOwner == nullptr) return;
+
+	auto MyOwnerInstigator = MyOwner->GetInstigatorController();
+
+	auto DamageTypeClass = UDamageType::StaticClass();
+
+	if(OtherActor && OtherActor != this && OtherActor != MyOwner)
+	{
+		// Apply damage to the hit actor
+		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwnerInstigator, this, DamageTypeClass);
+		Destroy();
+		
+		// Optionally, you can add visual or sound effects here
+	}
 }
 

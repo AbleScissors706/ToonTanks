@@ -37,20 +37,12 @@ void UHealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 
 void UHealthComponent::DamageTaken(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser)
 {
-	if (Damage <= 0.f || Health <= 0.f)
+	if(Damage <= 0.f || Health <= 0.f)
 	{
 		return; // No damage or already dead
 	}
 
-	Health -= Damage;
-	if (Health <= 0.f)
-	{
-		// Handle death logic here
-		UE_LOG(LogTemp, Warning, TEXT("Actor %s has died."), *DamagedActor->GetName());
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Actor %s took damage. Current health: %f"), *DamagedActor->GetName(), Health);
-	}
+	Health -= Damage; // Reduce health by damage amount
+	UE_LOG(LogTemp, Warning, TEXT("Health: %f"), Health);
 }
 
