@@ -44,6 +44,13 @@ void ATank::Tick(float DeltaTime)
     }
 }
 
+void ATank::HandleDestruction()
+{
+    Super::HandleDestruction();
+    SetActorHiddenInGame(true);
+    SetActorTickEnabled(false); // Disable ticking to stop further updates
+}
+
 void ATank::BeginPlay()
 {
     Super::BeginPlay();

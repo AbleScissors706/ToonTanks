@@ -27,6 +27,17 @@ ABasePawn::ABasePawn()
 
 }
 
+void ABasePawn::HandleDestruction()
+{
+	// Implement destruction logic here, such as playing effects or sounds
+	// For example, you can play a particle effect or sound when the pawn is destroyed
+	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), nullptr, GetActorLocation());
+	UGameplayStatics::PlaySoundAtLocation(this, nullptr, GetActorLocation());
+
+	// Optionally destroy the pawn
+	Destroy();
+}
+
 void ABasePawn::RotateTurret(FVector LookAtTarget)
 {
 	if (TurretMesh)
